@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react'
 
-function App() {
+import { Content, GlobalStyle } from './style/global'
+
+import { Summary } from './components/Summary'
+import { Overview } from './components/Overview'
+import { Logo } from './components/Logo'
+
+export function App() {
+
+  useEffect(() => {
+    (async () => {
+      const apiKey = process.env.REACT_APP_WEATHER_KEY;
+      const input = '';
+
+      const res1 = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${apiKey}`);
+      const data1 = await res1.json();
+      
+      const {lon, lat} = data1.coord;
+
+      const res2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}
+      `);
+      const data2 = await res2.json();
+
+      console.log(data1);
+      console.log(data2);
+    })();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Content>
+      <Logo />
+      <Summary />
+      <Overview />
+
+      <GlobalStyle />
+    </Content>
   );
 }
-
-export default App;
