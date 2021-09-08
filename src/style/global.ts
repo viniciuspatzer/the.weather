@@ -5,10 +5,8 @@ import teste from '../assets/prov2.jpg'
 export const Content = styled.div`
   height: 100vh;
   min-height: 700px;
-
   display: flex;
   align-items: stretch;
-
   background: url(${teste}) center center/cover no-repeat;
 `;
 

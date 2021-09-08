@@ -8,6 +8,12 @@ export const Content = styled.div`
   -ms-user-select: none;
   user-select: none;
 
+  .logo {
+    position: absolute;
+    top: 6rem;
+    left: 10rem;
+  }
+
   .wrapper {
     display: flex;
     align-items: center;

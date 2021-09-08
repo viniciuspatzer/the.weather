@@ -1,8 +1,11 @@
 import { Content } from "./styles"
 
-export function Summary() {
+export function Main() {
   return (
     <Content>
+
+      <h1 className="logo">the.weather</h1>
+
       <div className="wrapper">
         <h1>08°</h1>
         <div className="stats">
@@ -14,6 +17,7 @@ export function Summary() {
           <span>Rainy</span>
         </div>
       </div>
+
     </Content>
   )
 }
