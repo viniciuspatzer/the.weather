@@ -7,4 +7,7 @@ export const LOCATION_IQ_API_URL =
 
 
 // OPEN WHEATER API
-export const WEATHER_API_KEY = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
+const WEATHER_API_KEY = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
+
+export const WEATHER_API_URL = 
+`https://api.openweathermap.org/data/2.5/onecall?appid=${WEATHER_API_KEY}`;

@@ -1,12 +1,12 @@
 import { Search } from '../Search';
 
-import { CitiesFormattedData } from '../../ts/public-interfaces'
+import { PlacesDataAPI } from '../../ts/public-interfaces'
 
 import { Content } from "./styles";
 
 
 interface SidebarProps {
-  setCurrentCity: (params: CitiesFormattedData) => void;
+  setCurrentCity: (params: PlacesDataAPI) => void;
 }
 
 export function Sidebar({ setCurrentCity }: SidebarProps) {
