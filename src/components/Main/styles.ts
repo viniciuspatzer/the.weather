@@ -8,6 +8,10 @@ export const Content = styled.div`
   -ms-user-select: none;
   user-select: none;
 
+  /* @media(max-width: 600px){
+    display: none;
+  } */
+
   .logo {
     position: absolute;
     top: 6rem;

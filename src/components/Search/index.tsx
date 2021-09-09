@@ -1,79 +1,76 @@
-import { useState, useRef } from 'react';
-import { Content } from "./styles";
+import { useState, useRef, FormEvent } from 'react';
 import { FiSearch } from 'react-icons/fi'
+
+import axios from 'axios'
+import { waitUntil } from '../../helpers/waitUntil'
 import { LOCATION_IQ_API_URL } from '../../config/api'
 
-interface Coords {
-  lat: string;
-  lon: string;
+import { CitiesOriginalData, CitiesFormattedData } from '../../ts/public-interfaces'
+
+import { Content } from "./styles";
+
+
+interface SidebarProps {
+  setCurrentCity: (params: CitiesFormattedData) => void;
 }
 
-interface CitiesOriginalData {
-  address: {
-    name: string;
-    city: string;
-    state: string;
-    country: string;
-  }
-  lat: string;
-  lon: string;
-}
-
-interface CitiesFormattedData {
-  city: string;
-  state: string;
-  country: string;
-  displayName: string;
-  coords: Coords;
-}
-
-export function Search() {
+export function Search({ setCurrentCity }: SidebarProps) {
   const [citiesData, setCitiesData] = useState<CitiesFormattedData[]>([]);
+  const citiesDataRef = useRef<CitiesFormattedData[]>([]);
+  
   const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const throttling = useRef(false);
 
-  function handleClickCitySuggestion(data: CitiesFormattedData)  {
-    return null;
+  const throttling = useRef(false);
+  const fetching = useRef(true);
+
+  function handleSelectCity(data: CitiesFormattedData)  {
+    inputRef.current.value = data.displayName;
+    setCurrentCity(data);
+  }
+
+  async function handleSubmitForm(event: FormEvent) {
+    event.preventDefault();
+
+    await waitUntil(() => fetching.current === false);
+
+    handleSelectCity(citiesDataRef.current[0])
   }
 
   function handleThrottleSearch() {
-    if (throttling.current || !inputRef.current || !inputRef.current.value.trim()) {
+
+    if (throttling.current || !inputRef.current.value.trim()) {
       return;
     }
-    
+
     throttling.current = true;
 
     setTimeout(async () => {
       throttling.current = false;
 
-      if (inputRef.current.value.length < 3) {
+      if (!inputRef.current.value.length) {
         return;
       }
 
       try {
-        const response = await fetch(`${LOCATION_IQ_API_URL}&q=${inputRef.current.value}`);
-      
-        if (!response.ok) {
-          throw new Error('Something went wrong!');
-        }
+        fetching.current = true;
+        const response = await axios.get(`${LOCATION_IQ_API_URL}&q=${inputRef.current.value}`);
 
-        const data = await response.json();
-        console.log(data);
-
-        const formattedData = data.map((obj: CitiesOriginalData) => {
+        const formattedData = response.data.map((data: CitiesOriginalData) => {
           return {
-            city: obj.address.city || obj.address.name,
-            state: obj.address.state,
-            country: obj.address.country,
-            displayName: `${obj.address.city || obj.address.name}, ${obj.address.state}, ${obj.address.country}`,
+            city: data.address.city || data.address.name,
+            state: data.address.state,
+            country: data.address.country,
+            displayName: `${data.address.city || data.address.name}, ${data.address.state}, ${data.address.country}`,
             coords: {
-              lat: obj.lat,
-              lon: obj.lon
+              lat: data.lat,
+              lon: data.lon
             }
           };
         });
         
         setCitiesData(formattedData);
+        citiesDataRef.current = formattedData;
+        fetching.current = false;
 
       } catch(err) {
         console.error(err);
@@ -84,22 +81,22 @@ export function Search() {
   return (
     <Content>
 
-      <form className="search-bar">
+      <form onSubmit={handleSubmitForm} className="search-bar">
         <input
           type="text"
           placeholder="Another location"
           ref={inputRef}
           onChange={handleThrottleSearch}
         />
-        <div className="icon-box">
+        <button type="submit" className="icon-box">
           <FiSearch color="#000" size="30px" />
-        </div>
+        </button>
       </form>
 
       <div className="cities-suggestions">
         {citiesData.map((data) => (
           <span
-            onClick={() => handleClickCitySuggestion(data)}
+            onClick={() => handleSelectCity(data)}
             key={data.coords.lat}
           >
             {data.displayName}

@@ -25,6 +25,8 @@ export const Content = styled.div`
     padding: 4rem;
     background-color: #81A09A;
     cursor: pointer;
+    border: 0;
+    outline: 0;
   }
 }
 
@@ -32,18 +34,18 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   margin: 2rem 0;
+  margin-left: -1.5rem;
 
 
   span {
-    padding: 1rem;
-    padding-left: 0;
-    margin: 0.5rem 0;
+    padding: 1.5rem;
     font-size: 1.8rem;
     color: #81A09A;
     cursor: pointer;
 
     &:hover {
-      filter: brightness(2);
+        filter: brightness(2);
+        background-color: rgba(10, 10, 10, 0.1);
     }
   }
 }
