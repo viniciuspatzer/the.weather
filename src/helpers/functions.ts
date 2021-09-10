@@ -2,9 +2,9 @@ export const isObjectEmpty = function(object: {}) {
   return Object.keys(object).length === 0;
 }
 
-export const randomNumberInterval = function(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
+// export const randomNumberInterval = function(min: number, max: number) {
+//   return Math.floor(Math.random() * (max - min + 1) + min)
+// }
 
 export const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 

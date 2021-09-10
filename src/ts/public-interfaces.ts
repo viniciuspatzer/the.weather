@@ -1,11 +1,10 @@
 export interface PlacesDataAPI {
   address: {
     name: string;
-    city: string;
     state: string;
     country: string;
-    displayName: string;
   }
+  display_name: string;
   lat: string;
   lon: string;
 }

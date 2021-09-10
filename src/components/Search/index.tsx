@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, FormEvent } from 'react';
 import { FiSearch } from 'react-icons/fi'
 
 import axios from 'axios'
-import { waitUntil, randomNumberInterval } from '../../helpers/functions'
+import { waitUntil } from '../../helpers/functions'
 import { LOCATION_IQ_API_URL } from '../../config/api'
 
 import { PlacesDataAPI } from '../../ts/public-interfaces'
@@ -22,18 +22,14 @@ export function Search({ setCurrentCity }: SidebarProps) {
   const fetching = useRef(true);
 
   useEffect(() => {
-    const countries = ['United States', 'Canada', 'Brazil'];
-
     (async () => {
       try {
-        const response = await axios.get(`${LOCATION_IQ_API_URL}&q=${countries[randomNumberInterval(0, countries.length)]}`);
+        const response = await axios.get(`${LOCATION_IQ_API_URL}&q=abcde`);
         const data = response.data.map((data: PlacesDataAPI) => {
+          const {name, state, country} = data.address;
           return {
             ...data,
-            address: {
-              ...data.address,
-              displayName: `${data.address.city || data.address.name}, ${data.address.state}, ${data.address.country}`
-            }
+            display_name: `${name}, ${state ? state + "," : ""} ${country}`
           };
         });
 
@@ -47,7 +43,7 @@ export function Search({ setCurrentCity }: SidebarProps) {
   }, []);
 
   function handleSelectCity(data: PlacesDataAPI)  {
-    inputRef.current.value = data.address.displayName;
+    inputRef.current.value = data.display_name;
     setCurrentCity(data);
   }
 
@@ -72,15 +68,17 @@ export function Search({ setCurrentCity }: SidebarProps) {
       
       try {
         const response = await axios.get(`${LOCATION_IQ_API_URL}&q=${inputRef.current.value}`);
+
         const data = response.data.map((data: PlacesDataAPI) => {
+          const {name, state, country} = data.address;
           return {
             ...data,
-            address: {
-              ...data.address,
-              displayName: `${data.address.city || data.address.name}, ${data.address.state}, ${data.address.country}`
-            }
+            display_name: `${name}, ${state ? state + "," : ""} ${country}`
           };
         });
+
+        console.log(data);
+
         setCitiesData(data);
         citiesDataRef.current = data;
 
@@ -94,6 +92,7 @@ export function Search({ setCurrentCity }: SidebarProps) {
 
   return (
     <Content>
+
       <form onSubmit={handleSubmitForm} className="search-bar">
         <input
           type="text"
@@ -109,7 +108,7 @@ export function Search({ setCurrentCity }: SidebarProps) {
       <div className="cities-suggestions">
         {citiesData.map((data) => (
           <span key={data.lat} onClick={() => handleSelectCity(data)}>
-            {data.address.displayName}
+            {data.display_name}
           </span>
         ))}
       </div>

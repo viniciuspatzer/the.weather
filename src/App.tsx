@@ -13,12 +13,6 @@ import { Content, GlobalStyle } from './style/global'
 
 export function App() {
   const [currentCity, setCurrentCity] = useState<PlacesDataAPI>({} as PlacesDataAPI);
-  // const [navigatorConfig, setNavigatorConfig] = useState();
-
-  // useEffect(() => {
-  //   navigator.language...
-  //   setNavigatorConfig()
-  // }, []);
   
   useEffect(() => {
     if (isObjectEmpty(currentCity)) {
