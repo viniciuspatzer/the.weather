@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, FormEvent } from 'react';
 import { FiSearch } from 'react-icons/fi'
 
 import { waitUntil } from '../../utils/functions'
+import { getRandomCitiesArr } from '../../helpers/functions'
 import { LOCATION_IQ_API_URL_AUTO } from '../../config/api'
 import axios from 'axios'
 
@@ -22,30 +23,13 @@ export function Search({ setCurrentPlace }: SidebarProps) {
 
   useEffect(() => {
     (function getFirstSuggestedPlaces() {
-
-      // I tried to do this with another way, but I didn' find any free api with no requests limit...
-
-      const placesName = [];
-      while (placesName.length < 5) {
-        placesName.push('a');
-      }
-      
-    
-      // const ArrCom4obj = autocompletePlacesArr.filter(obj => {
-      //   arrCom4places.includes(obj.name)
-      // })
-
-      // name: string;
-      // display_name?: string;
-      // lat: string;
-      // lon: string;
-
-      // setPlacesData(um array com 4 objetos com o formato Place)
+      const places = getRandomCitiesArr(4);
+      setPlacesData(places);
     })();
   }, []);
 
   function handleSelectCity(data: Place)  {
-    inputRef.current.value = data.display_name!;
+    inputRef.current.value = data.name;
     setCurrentPlace(data);
   }
 
@@ -75,7 +59,7 @@ export function Search({ setCurrentPlace }: SidebarProps) {
           const { lat, lon } = data;
           return {
             name,
-            display_name: `${name}, ${state ? state + "," : ""} ${country}`,
+            display_name: `${name}, ${state ? state + ',' : ''} ${country}`,
             lat,
             lon,
           };

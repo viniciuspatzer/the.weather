@@ -1,8 +1,8 @@
 import { useLayoutEffect, useState } from 'react'
 
 import { Place, WeatherData } from './types/interfaces'
-import { LOCATION_IQ_API_URL_FORWARD, WEATHER_API_URL } from './config/api'
-import { getRandomCityName } from './utils/functions'
+import { WEATHER_API_URL } from './config/api'
+import { getRandomCitiesArr } from './helpers/functions'
 import axios from 'axios';
 
 import { Main } from './components/Main'
@@ -16,21 +16,9 @@ export function App() {
   const [loading, setLoading] = useState(true);
   
   useLayoutEffect(() => {
-    (async function setRandomFirstPlace() {
-      try {
-        const randomPlace = getRandomCityName();
-        const response = await axios.get(`${LOCATION_IQ_API_URL_FORWARD}&city=${randomPlace}`);
-        const { lat, lon } = response.data[0];
-        
-        setCurrentPlace({
-          name: randomPlace,
-          lat,
-          lon,
-        });
-
-      } catch(err) {
-        console.error(err);
-      }
+    (function setRandomFirstPlace() {
+      const [ place ] = getRandomCitiesArr(1);
+      setCurrentPlace(place);
     })();
    }, []);
 
