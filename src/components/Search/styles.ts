@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Content = styled.div`
 
-  min-height: 36rem;
+  // enquanto nao tem as sugestoes iniciais
+   min-height: 37rem;
 
   .search-bar {
     display: flex;
@@ -11,9 +12,9 @@ export const Content = styled.div`
     input {
       width: 100%;
       background-color:rgba(0, 0, 0, 0);
-      border: 0;
       border-bottom: 0.1rem solid #81A09A;
-      outline: 0;
+      margin-top: 6.1rem;
+      margin-right: 10rem;
 
       font-size: 1.8rem;
       line-height: 5rem;
@@ -27,21 +28,22 @@ export const Content = styled.div`
       margin-left: 6rem;
       padding: 4rem;
       background-color: #81A09A;
-      cursor: pointer;
-      border: 0;
-      outline: 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+
     }
   }
 
   .cities-suggestions {
     display: flex;
     flex-direction: column;
-    margin: 2rem 0;
+    margin: 3rem 0;
     margin-left: -1.5rem;
 
 
     span {
-      padding: 1.5rem;
+      padding: 2rem;
       font-size: 1.8rem;
       color: #81A09A;
       cursor: pointer;

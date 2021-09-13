@@ -1,23 +1,41 @@
 import { Content } from "./styles"
 
-export function Main() {
+import { WeatherData } from '../../types/interfaces'
+
+interface MainProps {
+  weatherData: WeatherData;
+  loading: boolean;
+}
+
+export function Main({ weatherData, loading }: MainProps) {
   return (
     <Content>
+      <a className="logo" href="https://the.wheater-viniciuspatzer.netlify.app/">
+        the.weather
+      </a>
 
-      <h1 className="logo">the.weather</h1>
-
-      <div className="wrapper">
-        <h1>08°</h1>
-        <div className="stats">
-          <h3>London</h3>
-          <span>06:09 - Sunday, 6 Oct '19</span>
+      {!loading && (
+        <div className="wrapper">
+          <h1>{Math.round(weatherData.current.temp)}°</h1>
+          <div className="stats">
+            <h3>{weatherData.place.name}</h3>
+            <span>
+              {new Date().toLocaleTimeString('en-us', {
+                timeZone: weatherData.timezone,
+                weekday: "long",
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </span>
+          </div>
+          <div className="status">
+            <img src={`http://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}@2x.png`} alt="weather icon" />
+            <span>{weatherData.current.weather[0].description}</span>
+          </div>
         </div>
-        <div className="status">
-          <i className="fas fa-cloud-showers-heavy"></i>
-          <span>Rainy</span>
-        </div>
-      </div>
-
+      )}
     </Content>
-  )
+  );
 }

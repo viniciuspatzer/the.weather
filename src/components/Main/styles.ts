@@ -3,11 +3,6 @@ import styled from "styled-components";
 export const Content = styled.div`
   flex: 2;
 
-  -webkit-user-select: none;    
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
   /* @media(max-width: 600px){
     display: none;
   } */
@@ -16,6 +11,9 @@ export const Content = styled.div`
     position: absolute;
     top: 6rem;
     left: 10rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #FFF;
   }
 
   .wrapper {
@@ -35,7 +33,7 @@ export const Content = styled.div`
       display: flex;
       flex-direction: column;
       margin-bottom: -2rem;
-      padding: 0 3rem;
+      padding: 0 6rem 0 4rem;
 
       h3 {
         font-size: 6rem;
@@ -50,19 +48,24 @@ export const Content = styled.div`
       display: flex;
       flex-direction: column;
       flex-direction: column;
-      margin-bottom: -1.5rem;
+      margin-bottom: 2.3rem;
 
       & > * {
         padding: 0.75rem;
       }
 
-      i {
-        font-size: 6rem;
-      }
-
       span {
         font-size: 2rem;
       }
+
+      img {
+        max-width: 11.5rem;
+      }
     }
+
+    -webkit-user-select: none;    
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 `;

@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-import teste from '../assets/prov2.jpg'
+// import teste from '../assets/prov2.jpg'
 
 export const Content = styled.div`
   height: 100vh;
   min-height: 700px;
   display: flex;
   align-items: stretch;
-  background: url(${teste}) center center/cover no-repeat;
+  background: black;
+  /* background: url() center center/cover no-repeat; */
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -33,6 +34,13 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     cursor: pointer;
+    border: 0;
+    outline: 0;
+  }
+
+  input {
+    outline: 0;
+    border: 0;
   }
 
   a {
