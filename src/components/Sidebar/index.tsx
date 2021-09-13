@@ -1,4 +1,6 @@
-import { useRef } from 'react';
+import { useState, useLayoutEffect } from 'react';
+
+import { Line } from 'react-chartjs-2';
 
 import { Search } from '../Search';
 import { Spinner } from '../Spinner'
@@ -7,9 +9,6 @@ import { Place, WeatherData } from '../../types/interfaces'
 
 import { Content } from "./styles";
 
-
-// React.MutableRefObject<boolean>
-
 interface SidebarProps {
   setCurrentPlace: (params: Place) => void;
   weatherData: WeatherData;
@@ -17,24 +16,55 @@ interface SidebarProps {
 }
 
 export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps) {
-  const dateRef = useRef(new Date());
+  const [chartData, setChartData] = useState({});
 
+  useLayoutEffect(() => {
+    (function configChart() {
+      if (!weatherData.timezone) return;
+      
+      const date = new Date().toLocaleDateString('en-us', {
+        timeZone: weatherData.timezone,
+        hour: "2-digit",
+        hour12: false,
+      });
+      const [, currentHour] = date.split(', ');
 
-  // get currentDay() {
-  //   return this.date.getDate();
-  // },
+      const hours = []; 
 
-  // get month() {
-  //   return this.date.getMonth();
-  // },
+      for (let i = 2; hours.length < 6; i += 2) {
+        const newHour = Number(currentHour) + i;
+        if(newHour >= 24 ) {
+          const rest = newHour % 24;
+          hours.push(0 + rest.toString() + ':00');
+        } else {
+          hours.push(newHour.toString() + ':00');
+        }
+      }
 
-  // get daysInCurrentMonth() {
-  //   return new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate();
-  // }
+      const data = weatherData.hourly.slice(0, 12);
+      const temps = data.filter((data, index) => index % 2 === 0 ? false : data)
+      .map(data => data.temp);
 
+      setChartData({
+        labels: hours,
+        datasets: [
+          {
+            label: 'Temperature',
+            data: temps,
+            backgroundColor: [
+              '#FFF'
+            ],
+            borderColor: '#FFF',
+            borderWidth: 3
+          }
+        ]
+      });
+
+    })();
+  }, [weatherData]);
 
   function calcDates(index: number) {
-    const date = dateRef.current;   
+    const date = new Date(); 
 
     const currentDay = date.getDate();
     const daysInCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
@@ -46,10 +76,7 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
     const weekdayIndex = weekdays.findIndex(day => day === currentWeekday);
     const actualWeekday = weekdays[weekdayIndex + index + 1];
     
-    return {
-      actualDay,
-      actualWeekday
-    }
+    return {actualDay, actualWeekday}
   }
 
   return (
@@ -83,6 +110,33 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
 
       {!loading && (
         <>
+          <div className="separator"></div>
+
+          <h1 className="heading">Next Hours</h1>
+
+          <div className="container-chart">
+            <Line 
+              data={chartData} 
+              options={{
+                responsive: true, 
+                scales: {
+                  yAxes: [
+                    {
+                      display: true,
+                      gridLines: {
+                        display: true ,
+                        color: "#81A09A",
+                        borderColor: "#81A09A",
+                        zeroLineColor: "#81A09A"
+                      }
+                    }
+                  ],
+                  
+                }
+              }} 
+            />
+          </div>
+
           <div className="separator"></div>
 
           <h1 className="heading">Next Days</h1>

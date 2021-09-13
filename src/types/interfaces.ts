@@ -32,6 +32,10 @@ interface DailyWeather {
   sunrise: number;
 }
 
+interface HourlyWeather {
+  temp: number;
+}
+
 export interface WeatherData {
   current: {
     temp: number;
@@ -42,6 +46,7 @@ export interface WeatherData {
     weather: Weather[];
   }
   daily: DailyWeather[];
+  hourly: HourlyWeather[];
   timezone: string;
   place: Place;
 }

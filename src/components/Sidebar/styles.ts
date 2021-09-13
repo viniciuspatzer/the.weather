@@ -41,6 +41,10 @@ export const Content = styled.aside`
     }
   }
 
+  .container-chart {
+    margin: 5rem 0;
+  }
+
   .container-flex-column {
     display: flex;
     flex-direction: column;
