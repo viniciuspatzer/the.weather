@@ -16,3 +16,11 @@ export const waitUntil = async (f: () => boolean) => {
   }
   return f();
 };
+
+export function getLocalHour(timezone: string) {
+  return new Date().toLocaleDateString('en-us', {
+    timeZone: timezone,
+    hour: "2-digit",
+    hour12: false,
+  }).split(', ')[1];
+}

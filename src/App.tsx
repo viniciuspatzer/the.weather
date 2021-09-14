@@ -30,7 +30,7 @@ export function App() {
         setLoading(true);
         const { lat, lon } = currentPlace;
         const response =  await axios.get(`${WEATHER_API_URL}&lat=${lat}&lon=${lon}&units=metric`);
-
+        
         setWeatherData({
           ...response.data,
           place: currentPlace
@@ -43,7 +43,7 @@ export function App() {
       setLoading(false);
     })();
   }, [currentPlace]);
-
+  
   return (
     <Content>
       <Main weatherData={weatherData} loading={loading}/>

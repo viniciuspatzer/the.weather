@@ -40,19 +40,16 @@ export function Search({ setCurrentPlace }: SidebarProps) {
   }
 
   function handleThrottleSearch() {
-    if (throttling.current || !inputRef.current.value.trim()) {
-      return;
-    }
+    const inputValue = inputRef.current.value.trim();
+    if (throttling.current || !inputValue) return;
     throttling.current = true;
 
     setTimeout(async () => {
-      if (!inputRef.current.value.trim()) {
-        return;
-      }
-      throttling.current = false;
-      fetching.current = true;
-      
+      if (!inputValue) return;
+
       try {
+        throttling.current = false;
+        fetching.current = true;
         const response = await axios.get(`${LOCATION_IQ_API_URL_AUTO}&q=${inputRef.current.value}`);
         const data = response.data.map((data: PlacesAPI) => {
           const {name, state, country} = data.address;

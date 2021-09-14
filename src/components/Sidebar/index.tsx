@@ -1,6 +1,7 @@
 import { useState, useLayoutEffect } from 'react';
 
 import { Line } from 'react-chartjs-2';
+import { getLocalHour } from '../../utils/functions'
 
 import { Search } from '../Search';
 import { Spinner } from '../Spinner'
@@ -19,15 +20,10 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
   const [chartData, setChartData] = useState({});
 
   useLayoutEffect(() => {
-    (function configChart() {
+    (function settingChart() {
       if (!weatherData.timezone) return;
-      
-      const date = new Date().toLocaleDateString('en-us', {
-        timeZone: weatherData.timezone,
-        hour: "2-digit",
-        hour12: false,
-      });
-      const [, currentHour] = date.split(', ');
+
+      const currentHour = getLocalHour(weatherData.timezone);
 
       const hours = []; 
 
@@ -42,17 +38,19 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
       }
 
       const data = weatherData.hourly.slice(0, 12);
-      const temps = data.filter((data, index) => index % 2 === 0 ? false : data)
-      .map(data => data.temp);
+      const temps = data
+        .filter((data, index) => (index % 2 === 0 ? false : data))
+        .map((data) => Math.round(data.temp));
 
       setChartData({
         labels: hours,
         datasets: [
           {
-            label: 'Temperature',
+            fill: true,
+            label: ' °C Temperature',
             data: temps,
             backgroundColor: [
-              '#FFF'
+              'rgba(255, 255, 255, 0.5)'
             ],
             borderColor: '#FFF',
             borderWidth: 3
@@ -118,21 +116,9 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
             <Line 
               data={chartData} 
               options={{
-                responsive: true, 
-                scales: {
-                  yAxes: [
-                    {
-                      display: true,
-                      gridLines: {
-                        display: true ,
-                        color: "#81A09A",
-                        borderColor: "#81A09A",
-                        zeroLineColor: "#81A09A"
-                      }
-                    }
-                  ],
-                  
-                }
+                responsive: true,
+                tension: 0.5, 
+                title: {text: 'Local time', display: true},
               }} 
             />
           </div>
@@ -143,11 +129,9 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
 
           <div className="container-flex-column">
             {weatherData.daily.map((data, index) => {
-
               const { actualDay, actualWeekday  } = calcDates(index);
-
               return (
-                <div key={data.sunrise.toString()}>
+                <div key={data.sunrise}>
                   <div className="date-box">
                     <span>{actualDay}</span>
                     <span>{actualWeekday}</span>
