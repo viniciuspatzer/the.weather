@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-import teste from '../assets/prov2.jpg'
 
 export const Content = styled.div`
   height: 100vh;
   min-height: 700px;
   display: flex;
   align-items: stretch;
-  /* background: black; */
-  background: url(${teste}) center center/cover no-repeat;
+  background: black;
+  /* background: url() center center/cover no-repeat; */
 `;
 
 export const GlobalStyle = createGlobalStyle`
