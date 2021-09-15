@@ -101,7 +101,7 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
           </div>
           <div>
             <span>Rain</span>
-            <span>{weatherData.current.rain || '0'}mm</span>
+            <span>{weatherData.current.rain?.['1h'] || '0'}mm</span>
           </div>
         </div>
       )}
@@ -155,7 +155,7 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
               );
             })}
           </div>
-      </>
+        </>
       )}
 
     </Content>

@@ -42,7 +42,9 @@ export interface WeatherData {
     clouds: number;
     humidity: number;
     wind_speed: number;
-    rain?: number;
+    rain?: {
+      '1h': number;
+    };
     weather: Weather[];
   }
   daily: DailyWeather[];

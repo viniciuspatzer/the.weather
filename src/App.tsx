@@ -39,11 +39,11 @@ export function App() {
       } catch(err) {  
         console.error(err);
       }
-
+      
       setLoading(false);
     })();
   }, [currentPlace]);
-  
+  console.log(weatherData);
   return (
     <Content>
       <Main weatherData={weatherData} loading={loading}/>

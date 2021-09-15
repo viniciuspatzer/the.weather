@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-// import teste from '../assets/prov2.jpg'
+import teste from '../assets/prov2.jpg'
 
 export const Content = styled.div`
   height: 100vh;
   min-height: 700px;
   display: flex;
   align-items: stretch;
-  background: black;
-  /* background: url() center center/cover no-repeat; */
+  /* background: black; */
+  background: url(${teste}) center center/cover no-repeat;
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -45,5 +45,23 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
+  }
+
+  ::-webkit-scrollbar{
+    width: 13px;
+    height: 13px;
+  }
+
+  ::-webkit-scrollbar-thumb{
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  ::-webkit-scrollbar-thumb:hover{
+    background: rgba(255, 255, 255, 0.30);
+  }
+
+  ::-webkit-scrollbar-track{
+    background: transparent;
+    box-shadow: inset 0px 0px 0px 0px #F0F0F0;
   }
 `;
