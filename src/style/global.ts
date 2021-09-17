@@ -67,4 +67,11 @@ export const GlobalStyle = createGlobalStyle`
     background: transparent;
     box-shadow: inset 0px 0px 0px 0px #F0F0F0;
   }
+
+  //// Media Queries
+  html{
+    @media(max-width: 1680px){
+      font-size: 57.5%;
+    }
+  }
 `;

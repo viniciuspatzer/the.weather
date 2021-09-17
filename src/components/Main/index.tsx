@@ -5,16 +5,17 @@ import { WeatherData } from '../../types/interfaces'
 interface MainProps {
   weatherData: WeatherData;
   loading: boolean;
+  error: boolean;
 }
 
-export function Main({ weatherData, loading }: MainProps) {
+export function Main({ weatherData, loading, error }: MainProps) {
   return (
     <Content>
       <a className="logo" href="https://the.wheater-viniciuspatzer.netlify.app/">
         the.weather
       </a>
 
-      {!loading && (
+      {!loading && !error && (
         <div className="wrapper">
           <h1>{Math.round(weatherData.current.temp)}°</h1>
           <div className="stats">

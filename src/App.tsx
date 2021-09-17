@@ -16,9 +16,9 @@ export function App() {
   const [currentPlace, setCurrentPlace] = useState<Place>({} as Place);
   const [weatherData, setWeatherData] = useState({} as WeatherData);
   const [loading, setLoading] = useState(true);
-
+  const [error, setError] = useState(false);
   const preloadedImages = useRef<HTMLImageElement[]>([]);
-  const [bgColor, setBgColor] = useState<string>('');
+  const [bgColor, setBgColor] = useState('');
   
   useLayoutEffect(() => {
     (function setRandomFirstPlace() {
@@ -33,6 +33,7 @@ export function App() {
 
       try {
         setLoading(true);
+        setError(false);
         const { lat, lon } = currentPlace;
         const response =  await axios.get(`${WEATHER_API_URL}&lat=${lat}&lon=${lon}&units=metric`);
         
@@ -43,6 +44,7 @@ export function App() {
 
       } catch(err) {  
         console.error(err);
+        setError(true);
       }
       
       setLoading(false);
@@ -78,8 +80,8 @@ export function App() {
 
   return (
     <Content bgColor={bgColor}>
-      <Main weatherData={weatherData} loading={loading}/>
-      <Sidebar setCurrentPlace={setCurrentPlace} weatherData={weatherData} loading={loading}/>
+      <Main weatherData={weatherData} loading={loading} error={error}/>
+      <Sidebar setCurrentPlace={setCurrentPlace} weatherData={weatherData} loading={loading} error={error}/>
       <GlobalStyle />
     </Content>
   );

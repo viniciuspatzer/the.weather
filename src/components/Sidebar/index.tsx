@@ -14,9 +14,10 @@ interface SidebarProps {
   setCurrentPlace: (params: Place) => void;
   weatherData: WeatherData;
   loading: boolean;
+  error: boolean;
 }
 
-export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps) {
+export function Sidebar({ setCurrentPlace, weatherData, loading, error }: SidebarProps) {
   const [chartData, setChartData] = useState({});
 
   useLayoutEffect(() => {
@@ -85,7 +86,7 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
 
       <h1 className="heading">Weather Details</h1>
 
-      {loading ? <Spinner /> : (
+      {loading ? <Spinner /> : !error && (
         <div className="container-flex-dual">
           <div>
             <span>Cloudy</span>
@@ -106,7 +107,7 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
         </div>
       )}
 
-      {!loading && (
+      {!loading && !error && (
         <>
           <div className="separator"></div>
 
@@ -128,7 +129,7 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
                       color: "#FFF",
                       font: {
                         size: 14,
-                      }
+                      },
                     }
                   }
                 },

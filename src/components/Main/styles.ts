@@ -3,10 +3,6 @@ import styled from "styled-components";
 export const Content = styled.div`
   flex: 2;
 
-  /* @media(max-width: 600px){
-    display: none;
-  } */
-
   .logo {
     position: absolute;
     top: 6rem;
@@ -47,7 +43,6 @@ export const Content = styled.div`
     .status {
       display: flex;
       flex-direction: column;
-      flex-direction: column;
       margin-bottom: 2.3rem;
 
       & > * {
@@ -67,5 +62,15 @@ export const Content = styled.div`
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  //// Media Queries
+  @media(max-width: 1680px){
+    .wrapper {
+      flex-direction: column;
+
+      bottom: 7.5rem;
+      left: 7.5rem;
+    }
   }
 `;

@@ -28,7 +28,7 @@ export function Search({ setCurrentPlace }: SidebarProps) {
     })();
   }, []);
 
-  function handleSelectCity(data: Place)  {
+  async function handleSelectCity(data: Place)  {
     inputRef.current.value = data.name;
     setCurrentPlace(data);
   }
