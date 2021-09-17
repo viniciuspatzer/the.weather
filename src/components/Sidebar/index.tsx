@@ -53,7 +53,7 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
               'rgba(255, 255, 255, 0.5)'
             ],
             borderColor: '#FFF',
-            borderWidth: 3
+            borderWidth: 3,
           }
         ]
       });
@@ -118,7 +118,39 @@ export function Sidebar({ setCurrentPlace, weatherData, loading }: SidebarProps)
               options={{
                 responsive: true,
                 tension: 0.5, 
-                title: {text: 'Local time', display: true},
+                title: {
+                  text: 'Local time',
+                  display: true
+                },
+                plugins: {
+                  legend: {
+                    labels: {
+                      color: "#FFF",
+                      font: {
+                        size: 14,
+                      }
+                    }
+                  }
+                },
+                scales: {
+                  x: {
+                    ticks: {
+                      color: '#FFF',
+                    },
+                    grid: {
+                      display: false,
+                    }
+                },
+                  y: {
+                    beginAtZero: true,
+                    ticks: {
+                      color: '#FFF',
+                    },
+                    grid: {
+                      display: false,
+                    }
+                },
+              },
               }} 
             />
           </div>

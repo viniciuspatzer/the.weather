@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Content = styled.aside`
   flex: 1;
-  background-color: rgb(10, 10, 10, 0.5);
+  background-color: rgb(0, 0, 0, 0.5);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   padding: 0 8rem;

@@ -1,13 +1,17 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
-export const Content = styled.div`
+interface ContentProps {
+  bgColor: string;
+}
+
+export const Content = styled.div<ContentProps>`
   height: 100vh;
   min-height: 700px;
   display: flex;
   align-items: stretch;
-  background: black;
-  /* background: url() center center/cover no-repeat; */
+  transition: all ease-out 0.25s;
+  background: black ${(props) => `url(${props.bgColor}) center center/cover no-repeat`};
 `;
 
 export const GlobalStyle = createGlobalStyle`
