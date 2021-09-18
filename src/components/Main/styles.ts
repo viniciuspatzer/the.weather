@@ -107,6 +107,7 @@ export const Content = styled.div`
   }
 
   @media(max-width: 980px){
+    display: none;
     flex: 0;
   }
 `;

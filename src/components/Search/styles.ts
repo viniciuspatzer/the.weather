@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Content = styled.div`
    min-height: 37rem;
+   position: relative;
 
   .search-bar {
     display: flex;
@@ -26,6 +27,7 @@ export const Content = styled.div`
       margin-left: 6rem;
       padding: 4rem;
       background-color: #81A09A;
+      margin-right: -8rem;
       position: absolute;
       top: 0;
       right: 0;
@@ -60,4 +62,17 @@ export const Content = styled.div`
     width: 100%;
     color: #81A09A;
   }
+
+  //// Media Queries
+  @media(max-width: 500px){
+  .search-bar {
+    input {
+      margin-right: 0rem;
+    }
+
+    .icon-box {
+      display: none;
+    }
+  }
+}
 `;
