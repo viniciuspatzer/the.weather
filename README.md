@@ -10,6 +10,8 @@
 
 ### [Demo](https://theweather-viniciuspatzer.netlify.app/)
 
+<br>
+
 ## About
 
 A beautiful dynamic weather forecast application, with autocomplete places search engine. The interface design I got from [Arthur Kazais](https://dribbble.com/thearthurk/) on [Dribbble](https://dribbble.com/shots/7376567-Weather-App-Website/).
