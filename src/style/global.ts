@@ -7,7 +7,6 @@ interface ContentProps {
 
 export const Content = styled.div<ContentProps>`
   height: 100vh;
-  min-height: 700px;
   display: flex;
   align-items: stretch;
   transition: all ease-out 0.25s;

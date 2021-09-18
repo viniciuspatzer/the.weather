@@ -23,6 +23,10 @@ export const Content = styled.aside`
   .container-flex-dual {
     margin: 5rem 0;
 
+    div:first-of-type {
+      display: none;
+    }
+
     div {
       display: flex;
       justify-content: space-between;
@@ -108,5 +112,18 @@ export const Content = styled.aside`
     .description {
       font-size: 1.5rem;
     }
+  }
+
+  //// Media Queries
+  @media(max-width: 980px){
+    .container-flex-dual {
+      div:first-of-type {
+        display: flex;
+      }
+    }
+  }
+
+  @media(max-width: 500px){
+    padding: 0 4rem;
   }
 `;

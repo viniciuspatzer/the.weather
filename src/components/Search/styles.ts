@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Content = styled.div`
 
-  // enquanto nao tem as sugestoes iniciais
    min-height: 37rem;
 
   .search-bar {
@@ -31,7 +30,6 @@ export const Content = styled.div`
       position: absolute;
       top: 0;
       right: 0;
-
     }
   }
 
@@ -53,5 +51,14 @@ export const Content = styled.div`
           background-color: rgba(10, 10, 10, 0.1);
       }
     }
-}
+  }
+
+  .error-container {
+    font-size: 1.8rem;
+    display: block;
+    text-align: center;
+    margin: 10rem -5rem;
+    width: 100%;
+    color: #81A09A;
+  }
 `;

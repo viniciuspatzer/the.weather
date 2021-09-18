@@ -16,6 +16,7 @@ interface SidebarProps {
 
 export function Search({ setCurrentPlace }: SidebarProps) {
   const [placesData, setPlacesData] = useState<Place[]>([]);
+  const [error, setError] = useState(false);
   const placesDataRef = useRef<Place[]>([]);
   const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const throttling = useRef(false);
@@ -48,6 +49,7 @@ export function Search({ setCurrentPlace }: SidebarProps) {
       if (!inputValue) return;
 
       try {
+        setError(false);
         throttling.current = false;
         fetching.current = true;
         const response = await axios.get(`${LOCATION_IQ_API_URL_AUTO}&q=${inputRef.current.value}`);
@@ -65,6 +67,7 @@ export function Search({ setCurrentPlace }: SidebarProps) {
         placesDataRef.current = data;
 
       } catch(err) {
+        setError(true);
         console.error(err);
       }
       fetching.current = false;
@@ -74,7 +77,6 @@ export function Search({ setCurrentPlace }: SidebarProps) {
 
   return (
     <Content>
-
       <form onSubmit={handleSubmitForm} className="search-bar">
         <input
           type="text"
@@ -87,14 +89,19 @@ export function Search({ setCurrentPlace }: SidebarProps) {
         </button>
       </form>
 
-      <div className="cities-suggestions">
-        {placesData.map(data => (
-          <span key={data.lat} onClick={() => handleSelectCity(data)}>
-            {data.display_name || data.name}
-          </span>
-        ))}
-      </div>
-
+      {error ? (
+        <div className="error-container">
+          We didn't find any results.
+        </div>
+      ) : (
+        <div className="cities-suggestions">
+          {placesData.map((data) => (
+            <span key={data.lat} onClick={() => handleSelectCity(data)}>
+              {data.display_name || data.name}
+            </span>
+          ))}
+        </div>
+      )}
     </Content>
   );
 }

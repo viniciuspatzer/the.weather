@@ -89,6 +89,10 @@ export function Sidebar({ setCurrentPlace, weatherData, loading, error }: Sideba
       {loading ? <Spinner /> : !error && (
         <div className="container-flex-dual">
           <div>
+            <span>Temperature</span>
+            <span>{Math.round(weatherData.current.temp)}°C</span>
+          </div>
+          <div>
             <span>Cloudy</span>
             <span>{weatherData.current.clouds}%</span>
           </div>
