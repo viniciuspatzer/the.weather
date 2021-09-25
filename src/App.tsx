@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, useRef } from 'react'
+import { useLayoutEffect, useEffect, useState, useRef } from 'react'
 
 import { Place, WeatherData } from './types/interfaces'
 import { WEATHER_API_URL } from './config/api'
@@ -21,13 +21,24 @@ export function App() {
   const [bgColor, setBgColor] = useState('');
   
   useLayoutEffect(() => {
-    (function setRandomFirstPlace() {
+    function setRandomFirstPlace() {
       const [ place ] = getRandomCitiesArr(1);
       setCurrentPlace(place);
-    })();
+    };
+
+    function preloadImages() {
+      preloadedImages.current = bg.map(image => {
+        const img = new Image();
+        img.src = image;
+        return img
+      });
+    }
+
+    setRandomFirstPlace();
+    preloadImages();
    }, []);
 
-   useLayoutEffect(() => {
+   useEffect(() => {
     (async function getWeather() {
       if (!currentPlace.name) return;
 
@@ -51,16 +62,7 @@ export function App() {
     })();
   }, [currentPlace]);
 
-  useLayoutEffect(() => {
-    preloadedImages.current = bg.map(image => {
-      const img = new Image();
-      img.src = image;
-      
-      return img
-    });
-  }, []);
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     (function handleChangingBackground() {
       if (!weatherData.timezone) return;
 

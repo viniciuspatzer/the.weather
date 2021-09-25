@@ -49,7 +49,7 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
-  ::-webkit-scrollbar{
+  /* ::-webkit-scrollbar{
     width: 13px;
     height: 13px;
   }
@@ -65,7 +65,7 @@ export const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar-track{
     background: transparent;
     box-shadow: inset 0px 0px 0px 0px #F0F0F0;
-  }
+  } */
 
   //// Media Queries
   html{

@@ -68,7 +68,8 @@ export function Sidebar({ setCurrentPlace, weatherData, loading, error }: Sideba
     const currentDay = date.getDate();
     const daysInCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
     const rest = (currentDay + index + 1) - daysInCurrentMonth;
-    const actualDay = rest >= 0 ? rest : (currentDay + index + 1);
+    const actualDay = rest >= 0 ? rest + 1 : (currentDay + index + 1);
+    
 
     const currentWeekday = date.toLocaleString('en-US', { weekday: "short" });    
     const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon'];
